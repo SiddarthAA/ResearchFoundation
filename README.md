@@ -1,65 +1,65 @@
 satmae-india-pipeline/
 │
-├── README.md                     ← Overview, instructions, architecture, credits
-├── requirements.txt             ← Core dependencies (PyTorch, Transformers, etc.)
-├── setup.sh / environment.yml   ← Conda or bash setup script
+├── README.md                       # Project overview, setup instructions, pipeline description
+├── requirements.txt               # Python dependencies
+├── setup.sh / environment.yml     # Conda or shell-based environment setup
 ├── .gitignore
 │
-├── config/
-│   ├── config.yaml              ← Central config: paths, model settings, etc.
+├── config/                         # Configuration files for each module
+│   ├── config.yaml
 │   ├── satmae.yaml
 │   ├── agents.yaml
 │   └── llm_orchestration.yaml
 │
-├── data/
-│   ├── raw/                     ← Raw datasets (Bhuvan, Sentinel, etc.)
-│   ├── processed/               ← Preprocessed, patchified, ready-to-train data
-│   ├── utils/                   ← Preprocessing scripts, patchifier, normalization
-│   └── download_scripts/        ← Sentinel API, Bhuvan scrapers
+├── data/                           # All data-related scripts and files
+│   ├── raw/                        # Raw datasets (Bhuvan, Sentinel, FloodNet, etc.)
+│   ├── processed/                  # Preprocessed and standardized inputs
+│   ├── utils/                      # Patchifier, normalization, metadata extractors
+│   └── download_scripts/          # APIs/scrapers for dataset downloads
 │
-├── foundation/
-│   ├── model/                   ← SatMAE encoder wrapper + ViT utilities
-│   ├── fine_tune.py             ← Fine-tuning SatMAE on Indian datasets
-│   ├── extract_embeddings.py    ← Outputs CLS/Patch tokens for agents
+├── foundation/                     # SatMAE model backbone
+│   ├── model/                      # SatMAE and ViT encoder code
+│   ├── fine_tune.py                # Fine-tuning on Indian imagery
+│   ├── extract_embeddings.py       # Generate patch/CLS tokens for downstream agents
 │   └── train_satmae_helpers.py
 │
-├── agents/
+├── agents/                         # Task-specific model heads
 │   ├── segmentation/
 │   │   ├── train_seg.py
-│   │   ├── model.py             ← SegFormer/UPerNet
+│   │   ├── model.py                # SegFormer/UPerNet
 │   │   └── infer_seg.py
 │   ├── classification/
 │   │   ├── train_cls.py
-│   │   └── model.py             ← MLP/VIT-based head
+│   │   └── model.py
 │   ├── captioning/
 │   │   ├── train_caption.py
-│   │   └── model.py             ← BLIP-2 wrapper
+│   │   └── model.py                # BLIP-2 interface
 │   └── change_detection/
 │       ├── train_change.py
-│       └── model.py             ← ChangeFormer
+│       └── model.py                # ChangeFormer wrapper
 │
-├── orchestration/
-│   ├── controller.py            ← Calls agents based on task prompt
-│   ├── prompt_templates.py      ← LLM prompt templates
-│   ├── llm_wrapper.py           ← Gemini / GPT / LLaMA interface
-│   └── multi_agent_manager.py   ← Agent routing, aggregation logic
+├── orchestration/                  # Multi-agent orchestrator + LLM interface
+│   ├── controller.py               # Controls task-agent assignment
+│   ├── prompt_templates.py
+│   ├── llm_wrapper.py              # Gemini / GPT / LLaMA interfaces
+│   └── multi_agent_manager.py
 │
-├── interface/
-│   ├── api.py                   ← FastAPI / Flask REST endpoints
-│   ├── streamlit_app.py         ← Optional: Web dashboard
+├── interface/                      # APIs and web-based dashboards
+│   ├── api.py                      # REST API using FastAPI/Flask
+│   ├── streamlit_app.py            # UI interface for demo
 │   ├── batch_inference.py
-│   └── map_visualizer.py        ← (Optional) Kepler/Mapbox integration
+│   └── map_visualizer.py           # Mapbox / Kepler visual output
 │
-├── notebooks/
-│   ├── EDA_indian_data.ipynb    ← Exploratory data analysis
+├── notebooks/                      # Jupyter notebooks for exploration & visualization
+│   ├── EDA_indian_data.ipynb
 │   ├── visualize_embeddings.ipynb
 │   └── results_demo.ipynb
 │
-├── logs/
+├── logs/                           # Training logs and evaluation reports
 │   ├── training_logs/
 │   └── eval_reports/
 │
-└── docs/
+└── docs/                           # Documentation and research references
     ├── architecture_diagram.png
     ├── design.md
     └── research_notes.md
